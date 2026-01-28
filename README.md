@@ -38,7 +38,7 @@ If the remaining days are low, the system shows an alert.
 
 ## 🖼️Flowchart
 
-![System Flowchart](flowchart ai.png)
+![System Flowchart]([flowchart ai.png](https://github.com/farhanarahaman976/Inventory-Management-System-using-AI/blob/main/flowchart%20ai.png))
 
 
 ## 🧩Project Scope
