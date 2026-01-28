@@ -61,6 +61,7 @@ can be applied to solve real-life inventory problems.
 **Farhana Rahaman Adiba**  
 - 📧 farhana.rahaman37@gmail.com  
 - 🆔 11220320976
+ 
 **Arpita Biswas**  
 - 📧 biswasarpita871@gmail.com
 - 🆔 11220320978
