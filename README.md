@@ -41,6 +41,13 @@ If the remaining days are low, the system shows an alert.
 ![System Flowchart]([flowchart ai.png](https://github.com/farhanarahaman976/Inventory-Management-System-using-AI/blob/main/flowchart%20ai.png))
 
 
+## 💻 Tools and Technologies
+- Python  
+- HTML  
+- CSS  
+- SQLite  
+- Basic AI Logic (Sales-based stock prediction)
+
 ## 🧩 Project Scope
 - Suitable for small businesses
 - Focused on core inventory functionality
