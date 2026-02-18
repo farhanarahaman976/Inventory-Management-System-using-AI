@@ -42,7 +42,7 @@ If the remaining days are low, the system shows an alert.
 
 
 ## 💻 Tools and Technologies
-- Python  
+- PHP 
 - HTML  
 - CSS  
 - SQLite  
