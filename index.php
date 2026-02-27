@@ -259,7 +259,7 @@ table th{
     <a href="index.php?page=all_products">All Products</a>
     <a href="index.php?page=add_product">Add Product</a>
     <a href="index.php?page=stock">Stock Overview</a>
-    <a href="index.php?page=best_selling">AI Best Selling</a>
+    <a href="index.php?page=best_selling">Best Selling</a>
     <a href="logout.php" class="logout-btn">Logout</a>
 </div>
 
@@ -463,12 +463,12 @@ elseif($page=='stock'){
     include 'stock.php';
 }
 
-// ================= AI BEST SELLING =================
+// ================= BEST SELLING =================
 elseif($page=='best_selling'){
 
 $best = $conn->query("SELECT * FROM products ORDER BY quantity ASC LIMIT 5");
 
-echo "<div class='card'><h3>AI Best Selling Products</h3>";
+echo "<div class='card'><h3>Best Selling Products</h3>";
 
 if($best->num_rows>0){
 echo "<table>
