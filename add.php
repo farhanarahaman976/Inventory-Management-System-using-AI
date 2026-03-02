@@ -60,7 +60,7 @@ $categories = [
         body {
             font-family: Arial, sans-serif;
             background-color: #f1f2f6;
-            padding: 40px;
+            padding: 0px;
         }
 
         .box {

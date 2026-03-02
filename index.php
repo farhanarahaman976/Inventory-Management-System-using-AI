@@ -6,6 +6,8 @@ if(!isset($_SESSION['username'])){
     header("Location: login.php");
     exit();
 }
+$notification_query = $conn->query("SELECT * FROM products WHERE quantity < 10");
+$notification_count = $notification_query->num_rows;
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 ?>
@@ -25,33 +27,70 @@ body{display:flex;height:100vh;background:#f4f6f9;}
 /* Sidebar */
 .sidebar{
     width:260px;
-    background:#2f3542;
+    background: linear-gradient(180deg, #1e272e, #2f3640);
     color:white;
     display:flex;
     flex-direction:column;
+    padding-top:20px;
 }
-.sidebar h2{
+
+.logo{
     text-align:center;
-    padding:20px;
-    border-bottom:1px solid #57606f;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:30px;
+    letter-spacing:1px;
 }
+
 .sidebar a{
-    padding:15px 20px;
-    color:white;
+    padding:14px 20px;
+    color:#dcdde1;
     text-decoration:none;
-    border-bottom:1px solid #57606f;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     transition:0.3s;
+    font-size:15px;
 }
-.sidebar a:hover{background:#57606f;}
+
+.sidebar a:hover{
+    background:#353b48;
+    color:white;
+    padding-left:25px;
+}
+
+.sidebar a.active{
+    background:#3742fa;
+    color:white;
+    border-left:4px solid #00a8ff;
+}
+
+.side-badge{
+    background:#ff4757;
+    color:white;
+    font-size:12px;
+    padding:3px 8px;
+    border-radius:20px;
+}
+
+.sidebar-bottom{
+    margin-top:auto;
+    padding:20px;
+}
+
 .logout-btn{
-    margin:20px;
-    padding:10px;
     background:#ff4757;
     text-align:center;
-    border-radius:6px;
+    padding:10px;
+    border-radius:8px;
     font-weight:bold;
+    display:block;
+    color:white;
 }
-.logout-btn:hover{background:#e84118;}
+
+.logout-btn:hover{
+    background:#e84118;
+}
 
 /* Main */
 .main{flex:1;display:flex;flex-direction:column;}
@@ -78,8 +117,78 @@ body{display:flex;height:100vh;background:#f4f6f9;}
     align-items:center;
     padding:0 40px;
 }
+.top-left h2{
+    margin:0;
+}
 
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
 
+.top-right input{
+    padding:8px 15px;
+    border-radius:20px;
+    border:none;
+    width:250px;
+}
+/* Notification Bell*/
+
+.notification{
+    position:relative;
+    margin-left:20px;
+    cursor:pointer;
+}
+
+.bell{
+    font-size:22px;
+}
+
+.badge{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    background:red;
+    color:white;
+    font-size:12px;
+    padding:3px 6px;
+    border-radius:50%;
+}
+
+.dropdown{
+    position:absolute;
+    top:40px;
+    right:0;
+    width:280px;
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    padding:15px;
+    display:none;
+    z-index:999;
+    max-height:300px;
+    overflow-y:auto;
+}
+
+.dropdown h4{
+    margin-bottom:10px;
+    font-size:16px;
+    color:#333;
+}
+
+.dropdown p{
+    font-size:14px;
+    padding:8px 10px;
+    margin-bottom:6px;
+    background:#f8f9fa;
+    border-radius:6px;
+    color:#333;
+}
+
+.dropdown p:hover{
+    background:#ffecec;
+}
 /* Search Bar */
 .search-form{
     display:flex;
@@ -254,13 +363,34 @@ table th{
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <h2>The Inventory Hub</h2>
-    <a href="index.php?page=dashboard">Dashboard</a>
-    <a href="index.php?page=all_products">All Products</a>
-    <a href="index.php?page=add_product">Add Product</a>
-    <a href="index.php?page=stock">Stock Overview</a>
-    <a href="index.php?page=best_selling">Best Selling</a>
-    <a href="logout.php" class="logout-btn">Logout</a>
+    <h2 class="logo">The Inventory Hub</h2>
+
+    <a href="index.php?page=dashboard" class="<?php if($page=='dashboard') echo 'active'; ?>">
+        📊 Dashboard
+    </a>
+
+    <a href="index.php?page=all_products" class="<?php if($page=='all_products') echo 'active'; ?>">
+        📦 All Products
+    </a>
+
+    <a href="index.php?page=add_product" class="<?php if($page=='add_product') echo 'active'; ?>">
+        ➕ Add Product
+    </a>
+
+    <a href="index.php?page=stock" class="<?php if($page=='stock') echo 'active'; ?>">
+        📉 Stock Overview
+        <?php if($notification_count > 0){ ?>
+            <span class="side-badge"><?php echo $notification_count; ?></span>
+        <?php } ?>
+    </a>
+
+    <a href="index.php?page=best_selling" class="<?php if($page=='best_selling') echo 'active'; ?>">
+        🔥 Best Selling
+    </a>
+
+    <div class="sidebar-bottom">
+        <a href="logout.php" class="logout-btn">🚪 Logout</a>
+    </div>
 </div>
 
 <!-- Main -->
@@ -279,6 +409,27 @@ table th{
         <button type="submit">Search</button>
     </form>
 
+<div class="notification">
+    <span class="bell">🔔</span>
+    <?php if($notification_count > 0){ ?>
+        <span class="badge"><?php echo $notification_count; ?></span>
+    <?php } ?>
+    
+    <div class="dropdown">
+        <h4>Low Stock Alerts</h4>
+        <?php
+$low_stock_items = $conn->query("SELECT * FROM products WHERE quantity < 10");
+
+if($low_stock_items->num_rows > 0){
+    while($row = $low_stock_items->fetch_assoc()){
+        echo "<p>{$row['product_name']} (Qty: {$row['quantity']})</p>";
+    }
+} else {
+    echo "<p>No notifications</p>";
+}
+?>
+    </div>
+</div>
 </div>
 
 
@@ -495,5 +646,16 @@ echo "</div>";
 
 </div>
 </div>
+<script>
+document.querySelector('.notification').addEventListener('click', function(e){
+    e.stopPropagation();
+    var dropdown = document.querySelector('.dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+});
+
+document.addEventListener('click', function(){
+    document.querySelector('.dropdown').style.display = 'none';
+});
+</script>
 </body>
 </html>
