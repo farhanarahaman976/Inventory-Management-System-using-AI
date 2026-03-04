@@ -1,7 +1,7 @@
 <?php
-include 'includes/config.php';
+session_start();
 
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
@@ -14,7 +14,7 @@ if (!isset($_SESSION['admin'])) {
 </head>
 <body>
 
-<h2>Welcome, <?php echo $_SESSION['admin']; ?></h2>
+<h2>Welcome, <?php echo $_SESSION['username']; ?></h2>
 
 <a href="logout.php">Logout</a>
 

@@ -78,6 +78,33 @@ body{display:flex;height:100vh;background:#f4f6f9;}
     padding:20px;
 }
 
+.menu-title{
+    padding:14px 20px;
+    cursor:pointer;
+    color:#dcdde1;
+    transition:0.3s;
+}
+
+.menu-title:hover{
+    background:#353b48;
+    color:white;
+}
+
+.submenu{
+    display:none;
+    flex-direction:column;
+}
+
+.submenu a{
+    padding:10px 40px;
+    font-size:14px;
+    background:#2f3640;
+}
+
+.submenu a:hover{
+    background:#3d3d3d;
+}
+
 .logout-btn{
     background:#ff4757;
     text-align:center;
@@ -102,7 +129,174 @@ body{display:flex;height:100vh;background:#f4f6f9;}
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.content{
+    flex:1;
+    padding:40px;
+}
+.page-title{
+    font-size:22px;
+    margin-bottom:20px;
+    font-weight:bold;
+}
 
+.settings-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    width:100%;
+    max-width:500px;
+}
+.settings-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+} 
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.avatar{
+    width:70px;
+    height:70px;
+    background:#3742fa;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    border-radius:50%;
+    font-weight:bold;
+}
+
+.active-status{
+    color:#2ed573;
+    font-weight:bold;
+}
+
+.settings-form{
+    display:flex;
+    flex-direction:column;
+}
+
+.settings-form label{
+    margin-top:15px;
+    margin-bottom:5px;
+    font-weight:500;
+}
+
+.settings-form input{
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    transition:0.3s;
+}
+
+.settings-form input:focus{
+    border-color:#3742fa;
+}
+
+.btn-primary{
+    margin-top:20px;
+    padding:10px;
+    background:#3742fa;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn-primary:hover{
+    background:#2f3542;
+}
+
+.success-msg{
+    margin-top:15px;
+    color:#2ed573;
+    font-weight:bold;
+}
+
+.error-msg{
+    margin-top:15px;
+    color:#ff4757;
+    font-weight:bold;
+}
+
+.profile-card{
+    width:100%;
+    max-width:600px;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,0.1);
+}
+
+.profile-header{
+    background:linear-gradient(135deg, #3742fa, #6c5ce7);
+    padding:30px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    color:white;
+}
+
+.profile-avatar{
+    width:90px;
+    height:90px;
+    background:white;
+    color:#3742fa;
+    font-size:36px;
+    font-weight:bold;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.profile-name h3{
+    margin:0;
+    font-size:22px;
+}
+
+.profile-name p{
+    margin:5px 0 0;
+    opacity:0.9;
+}
+
+.profile-body{
+    padding:25px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.info-box{
+    background:#f8f9fa;
+    padding:15px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+}
+
+.info-box span{
+    font-size:13px;
+    color:#888;
+}
+
+.info-box strong{
+    margin-top:5px;
+    font-size:15px;
+}
+
+.active-status{
+    color:#2ed573;
+    font-weight:bold;
+}
 /* Topbar */
 /* Topbar Styling */
 .topbar{
@@ -388,6 +582,33 @@ table th{
         🔥 Best Selling
     </a>
 
+    <!-- Settings Menu -->
+<div class="menu-item">
+
+    <div class="menu-title" onclick="toggleSettings()">
+        ⚙ Settings ▾
+    </div>
+
+    <div class="submenu" id="settingsMenu">
+
+        <a href="index.php?page=profile" 
+        class="<?php if($page=='profile') echo 'active'; ?>">
+            👤 Admin Profile
+        </a>
+
+        <a href="index.php?page=change_password" 
+        class="<?php if($page=='change_password') echo 'active'; ?>">
+            🔑 Change Password
+        </a>
+
+        <a href="index.php?page=store_settings" 
+        class="<?php if($page=='store_settings') echo 'active'; ?>">
+            🏪 Store Settings
+        </a>
+
+    </div>
+</div>
+
     <div class="sidebar-bottom">
         <a href="logout.php" class="logout-btn">🚪 Logout</a>
     </div>
@@ -404,10 +625,10 @@ table th{
     </div>
 
     <form method="GET" action="index.php" class="search-form">
-        <input type="hidden" name="page" value="all_products">
-        <input type="text" name="search" placeholder="Search products...">
-        <button type="submit">Search</button>
-    </form>
+    <input type="hidden" name="page" value="all_products">
+    <input type="text" name="search" placeholder="Search products...">
+    <button type="submit">Search</button>
+</form>
 
 <div class="notification">
     <span class="bell">🔔</span>
@@ -598,6 +819,79 @@ elseif($page=='category'){
     }
     echo "</div>";
 }
+// ================= SEARCH =================
+elseif($page == 'all_products'){
+
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $search_safe = $conn->real_escape_string($search);
+
+    if($search != ''){
+        $result = $conn->query("SELECT * FROM products 
+                                WHERE product_name LIKE '%$search_safe%' 
+                                ORDER BY id DESC");
+    } else {
+        $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
+    }
+
+    echo "<h2 style='margin-bottom:20px;'>All Products</h2>";
+
+    if($result->num_rows > 0){
+
+        echo "<table class='low-stock-table'>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>";
+
+        while($row = $result->fetch_assoc()){
+
+            $highlight = '';
+            if($search != '' && stripos($row['product_name'], $search) !== false){
+                $highlight = "style='background:#ffe6e6; font-weight:bold;'";
+            }
+
+            echo "<tr $highlight>
+                    <td>{$row['id']}</td>
+                    <td>{$row['product_name']}</td>
+                    <td>{$row['category']}</td>
+                    <td>{$row['quantity']}</td>
+                    <td>৳{$row['price']}</td>
+                    <td>".($row['quantity'] < 10 
+                        ? "<span class='low'>Low Stock</span>" 
+                        : "Available")."</td>
+                    <td>
+                        <a href='index.php?page=update_product&id={$row['id']}' class='edit-btn btn'>Edit</a>
+                        <a href='products.php?delete_id={$row['id']}' 
+                           class='delete-btn btn'
+                           onclick=\"return confirm('Delete this product?')\">
+                           Delete
+                        </a>
+                    </td>
+                  </tr>";
+        }
+
+        echo "</table>";
+
+    } else {
+        echo "<p>No products found.</p>";
+    }
+}
+
+// ================= SETTINGS =================
+if($page == 'profile'){
+    include 'profile.php';
+}
+elseif($page == 'change_password'){
+    include 'change_password.php';
+}
+elseif($page == 'store_settings'){
+    include 'store_settings.php';
+}
 
 // ================= ALL PRODUCTS =================
 elseif($page=='all_products'){
@@ -656,6 +950,17 @@ document.querySelector('.notification').addEventListener('click', function(e){
 document.addEventListener('click', function(){
     document.querySelector('.dropdown').style.display = 'none';
 });
+</script>
+<script>
+function toggleSettings(){
+    var menu = document.getElementById("settingsMenu");
+
+    if(menu.style.display === "flex"){
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "flex";
+    }
+}
 </script>
 </body>
 </html>
