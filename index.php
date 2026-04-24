@@ -582,6 +582,8 @@ table th{
         🔥 Best Selling
     </a>
 
+    <a href="user_login.php">👤 User Panel</a>
+
     <!-- Settings Menu -->
 <div class="menu-item">
 
