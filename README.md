@@ -57,6 +57,7 @@ The system analyzes product stock and sales data:
 
 ![System Flowchart]([flowchart ai.png](https://github.com/farhanarahaman976/Inventory-Management-System-using-AI/blob/main/flowchart%20ai.png))
 
+---
 
 ## 💻 Tools and Technologies
 - PHP (Backend)
